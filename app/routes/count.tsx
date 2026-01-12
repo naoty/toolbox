@@ -48,6 +48,9 @@ export default function Count() {
           </div>
         </main>
       </div>
+
+      <title>文字数カウンター - toolbox.naoty.dev</title>
+      <meta name="description" content="テキストの文字数をカウントします" />
     </div>
   );
 }

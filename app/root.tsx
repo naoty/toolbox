@@ -29,6 +29,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>toolbox.naoty.dev</title>
+        <meta name="description" content="A collection of small tools" />
+        <meta name="author" content="Naoto Kaneko" />
         <Meta />
         <Links />
       </head>
