@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { Copy, RotateCw } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -124,9 +125,17 @@ export default function RandomText() {
             </div>
           </div>
 
-          <div className="bg-green-50 p-2 space-y-2">
+          <div className="relative bg-green-50 p-4 space-y-2">
             <p className="text-sm text-slate-500">生成結果</p>
             <p className="text-lg font-mono text-slate-800">{randomText}</p>
+            <div className="absolute top-3 right-3 flex flex-row gap-x-1">
+              <button className="p-2 rounded-lg cursor-pointer transition-colors hover:bg-green-100">
+                <RotateCw className="size-4 text-green-600" />
+              </button>
+              <button className="p-2 rounded-lg cursor-pointer transition-colors hover:bg-green-100">
+                <Copy className="size-4 text-green-600" />
+              </button>
+            </div>
           </div>
         </main>
       </div>
