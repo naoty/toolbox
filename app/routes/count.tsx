@@ -11,7 +11,7 @@ export default function Count() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-slate-50">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-blue-50">
       <nav className="w-full max-w-2xl mx-auto">
         <ol className="flex flex-row items-center gap-x-2 text-sm text-slate-500">
           <li>
@@ -32,7 +32,7 @@ export default function Count() {
             placeholder="テキストを入力"
             value={text}
             onChange={(e) => setText(e.currentTarget.value)}
-            className="w-full min-h-[200px] p-2 border border-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-400"
+            className="w-full min-h-[200px] p-2 border border-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-400"
           />
 
           <div className="flex flex-row gap-x-4">
