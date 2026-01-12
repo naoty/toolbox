@@ -32,7 +32,7 @@ export default function Index() {
     <div className="min-h-screen bg-slate-50 p-4">
       <main className="max-w-4xl mx-auto space-y-8">
         <h1 className="text-2xl font-bold text-slate-800 text-center mt-8">
-          tools.naoty.dev
+          toolbox.naoty.dev
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
