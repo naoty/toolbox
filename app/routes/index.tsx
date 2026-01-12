@@ -12,7 +12,7 @@ const tools = [
   {
     name: "ランダム文字列生成",
     description: "指定した条件でランダムな文字列を生成します",
-    path: "/random-string",
+    path: "/random-text",
     icon: "?#",
     iconBackgroundColor: "bg-green-100",
     iconColor: "text-green-600",
