@@ -37,10 +37,14 @@ const charSets = [
 ];
 
 export default function RandomText() {
-  const [length, setLength] = useState(8);
+  const [lengthText, setLengthText] = useState("8");
   const [selectedCharSetIds, setSelectedCharSetIds] = useState<CharSetType[]>([
     "hiragana",
   ]);
+
+  const parsedLength = parseInt(lengthText, 10);
+  const length =
+    Number.isNaN(parsedLength) || parsedLength < 0 ? 0 : parsedLength;
 
   const availableChars = charSets
     .filter((set) => selectedCharSetIds.includes(set.id))
@@ -53,8 +57,7 @@ export default function RandomText() {
     .join("");
 
   const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.currentTarget.valueAsNumber;
-    setLength(Number.isNaN(value) || value < 1 ? 1 : value);
+    setLengthText(event.currentTarget.value);
   };
 
   const handleCharSetToggle = (charSetId: CharSetType) => {
@@ -104,7 +107,7 @@ export default function RandomText() {
               id="length"
               type="number"
               min={1}
-              value={length}
+              value={lengthText}
               onChange={handleLengthChange}
               className="w-full p-2 border border-slate-300 focus:outline-none focus:ring focus:ring-green-400 text-slate-700"
             />
