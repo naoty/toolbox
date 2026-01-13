@@ -138,17 +138,19 @@ export default function RandomText() {
             </div>
           </div>
 
-          <div className="relative bg-green-50 p-4 space-y-2">
-            <p className="text-sm text-slate-500">生成結果</p>
-            <p className="text-lg font-mono text-slate-800 break-all">
+          <div className="relative bg-green-50 p-4">
+            <p className="mb-2 text-sm text-slate-500">生成結果</p>
+            <p className="mb-4 text-lg font-mono text-slate-800 break-all">
               {randomText}
             </p>
-            <div className="absolute top-3 right-3 flex flex-row gap-x-1">
-              <button className="p-2 rounded-lg cursor-pointer transition-colors hover:bg-green-100">
-                <RotateCw className="size-4 text-green-600" />
+            <div className="flex gap-x-2">
+              <button className="flex-1 flex items-center justify-center gap-x-2 px-4 py-2 bg-green-600 text-white cursor-pointer transition-colors hover:bg-green-700">
+                <RotateCw className="size-4" />
+                再生成
               </button>
-              <button className="p-2 rounded-lg cursor-pointer transition-colors hover:bg-green-100">
-                <Copy className="size-4 text-green-600" />
+              <button className="flex-1 flex items-center justify-center gap-x-2 px-4 py-2 bg-white text-green-700 border border-green-300 cursor-pointer transition-colors hover:bg-green-50">
+                <Copy className="size-4" />
+                コピー
               </button>
             </div>
           </div>
