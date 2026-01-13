@@ -7,13 +7,25 @@ type CharSetType = (typeof charSets)[number]["id"];
 
 const charSets = [
   {
+    id: "hiragana" as const,
+    label: "ひらがな",
+    chars:
+      "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽゃゅょっ",
+  },
+  {
+    id: "katakana" as const,
+    label: "カタカナ",
+    chars:
+      "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポャュョッ",
+  },
+  {
     id: "uppercase" as const,
-    label: "大文字",
+    label: "アルファベット大文字",
     chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   },
   {
     id: "lowercase" as const,
-    label: "小文字",
+    label: "アルファベット小文字",
     chars: "abcdefghijklmnopqrstuvwxyz",
   },
   { id: "numbers" as const, label: "数字", chars: "0123456789" },
@@ -27,9 +39,7 @@ const charSets = [
 export default function RandomText() {
   const [length, setLength] = useState(8);
   const [selectedCharSetIds, setSelectedCharSetIds] = useState<CharSetType[]>([
-    "uppercase",
-    "lowercase",
-    "numbers",
+    "hiragana",
   ]);
 
   const availableChars = charSets
