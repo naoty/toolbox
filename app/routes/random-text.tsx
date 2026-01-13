@@ -41,6 +41,7 @@ export default function RandomText() {
   const [selectedCharSetIds, setSelectedCharSetIds] = useState<CharSetType[]>([
     "hiragana",
   ]);
+  const [version, setVersion] = useState(1);
   const [copied, setCopied] = useState(false);
 
   const parsedLength = parseInt(lengthText, 10);
@@ -61,11 +62,15 @@ export default function RandomText() {
           ),
         )
         .join(""),
-    [length, availableChars],
+    [length, availableChars, version],
   );
 
   const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLengthText(event.currentTarget.value);
+  };
+
+  const handleGenerateButtonClick = () => {
+    setVersion((v) => v + 1);
   };
 
   const handleCopyButtonClick = () => {
@@ -158,7 +163,10 @@ export default function RandomText() {
               {randomText}
             </p>
             <div className="flex gap-x-2">
-              <button className="flex-1 flex items-center justify-center gap-x-2 px-4 py-2 bg-green-600 text-white cursor-pointer transition-colors hover:bg-green-700">
+              <button
+                className="flex-1 flex items-center justify-center gap-x-2 px-4 py-2 bg-green-600 text-white cursor-pointer transition-colors hover:bg-green-700"
+                onClick={handleGenerateButtonClick}
+              >
                 <RotateCw className="size-4" />
                 再生成
               </button>
