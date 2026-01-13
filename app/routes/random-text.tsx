@@ -140,7 +140,9 @@ export default function RandomText() {
 
           <div className="relative bg-green-50 p-4 space-y-2">
             <p className="text-sm text-slate-500">生成結果</p>
-            <p className="text-lg font-mono text-slate-800">{randomText}</p>
+            <p className="text-lg font-mono text-slate-800 break-all">
+              {randomText}
+            </p>
             <div className="absolute top-3 right-3 flex flex-row gap-x-1">
               <button className="p-2 rounded-lg cursor-pointer transition-colors hover:bg-green-100">
                 <RotateCw className="size-4 text-green-600" />
