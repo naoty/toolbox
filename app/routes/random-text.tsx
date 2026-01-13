@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Check, Copy, RotateCw } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router";
 
 type CharSetType = (typeof charSets)[number]["id"];
@@ -51,11 +51,18 @@ export default function RandomText() {
     .filter((set) => selectedCharSetIds.includes(set.id))
     .map((set) => set.chars)
     .join("");
-  const randomText = Array.from({ length })
-    .map(() =>
-      availableChars.charAt(Math.floor(Math.random() * availableChars.length)),
-    )
-    .join("");
+
+  const randomText = useMemo(
+    () =>
+      Array.from({ length })
+        .map(() =>
+          availableChars.charAt(
+            Math.floor(Math.random() * availableChars.length),
+          ),
+        )
+        .join(""),
+    [length, availableChars],
+  );
 
   const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLengthText(event.currentTarget.value);
