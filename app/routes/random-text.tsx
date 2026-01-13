@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Copy, RotateCw } from "lucide-react";
+import { Check, Copy, RotateCw } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -41,6 +41,7 @@ export default function RandomText() {
   const [selectedCharSetIds, setSelectedCharSetIds] = useState<CharSetType[]>([
     "hiragana",
   ]);
+  const [copied, setCopied] = useState(false);
 
   const parsedLength = parseInt(lengthText, 10);
   const length =
@@ -58,6 +59,12 @@ export default function RandomText() {
 
   const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLengthText(event.currentTarget.value);
+  };
+
+  const handleCopyButtonClick = () => {
+    navigator.clipboard.writeText(randomText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleCharSetToggle = (charSetId: CharSetType) => {
@@ -148,9 +155,25 @@ export default function RandomText() {
                 <RotateCw className="size-4" />
                 再生成
               </button>
-              <button className="flex-1 flex items-center justify-center gap-x-2 px-4 py-2 bg-white text-green-700 border border-green-300 cursor-pointer transition-colors hover:bg-green-50">
-                <Copy className="size-4" />
-                コピー
+
+              <button
+                className={clsx(
+                  "flex-1 flex items-center justify-center gap-x-2 px-4 py-2 text-green-700 border border-green-300 cursor-pointer transition-colors",
+                  copied ? "bg-green-100" : "bg-white hover:bg-green-50",
+                )}
+                onClick={handleCopyButtonClick}
+              >
+                {copied ? (
+                  <>
+                    <Check className="size-4" />
+                    コピーしました
+                  </>
+                ) : (
+                  <>
+                    <Copy className="size-4" />
+                    コピー
+                  </>
+                )}
               </button>
             </div>
           </div>
