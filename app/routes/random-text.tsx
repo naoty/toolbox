@@ -2,10 +2,8 @@ import clsx from "clsx";
 import { Check, Copy, RotateCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
-import { Body } from "~/components/body";
 import { Breadcrumb } from "~/components/breadcrumb";
-import { Container } from "~/components/container";
-import { Header } from "~/components/header";
+import { Page } from "~/components/page";
 
 type CharSetType = (typeof charSets)[number]["id"];
 
@@ -103,8 +101,8 @@ export default function RandomText() {
   };
 
   return (
-    <Container className="bg-green-50">
-      <Header>
+    <Page.Container className="bg-green-50">
+      <Page.Header>
         <Breadcrumb.Root>
           <Breadcrumb.List>
             <Breadcrumb.Item>
@@ -120,9 +118,9 @@ export default function RandomText() {
             <Breadcrumb.CurrentItem>ランダム文字列生成</Breadcrumb.CurrentItem>
           </Breadcrumb.List>
         </Breadcrumb.Root>
-      </Header>
+      </Page.Header>
 
-      <Body>
+      <Page.Body>
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
           <h1 className="text-xl font-bold text-slate-800">
             ランダム文字列生成
@@ -203,7 +201,7 @@ export default function RandomText() {
             </div>
           </div>
         </main>
-      </Body>
-    </Container>
+      </Page.Body>
+    </Page.Container>
   );
 }

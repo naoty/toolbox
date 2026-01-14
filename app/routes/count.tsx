@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Body } from "~/components/body";
 import { Breadcrumb } from "~/components/breadcrumb";
-import { Container } from "~/components/container";
-import { Header } from "~/components/header";
+import { Page } from "~/components/page";
 
 const numberFormat = new Intl.NumberFormat("ja-JP");
 
@@ -15,8 +13,8 @@ export default function Count() {
   );
 
   return (
-    <Container className="bg-blue-50">
-      <Header>
+    <Page.Container className="bg-blue-50">
+      <Page.Header>
         <Breadcrumb.Root>
           <Breadcrumb.List>
             <Breadcrumb.Item>
@@ -32,9 +30,9 @@ export default function Count() {
             <Breadcrumb.CurrentItem>文字数カウンター</Breadcrumb.CurrentItem>
           </Breadcrumb.List>
         </Breadcrumb.Root>
-      </Header>
+      </Page.Header>
 
-      <Body>
+      <Page.Body>
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
           <h1 className="text-xl font-bold text-slate-800">文字数カウンター</h1>
 
@@ -57,10 +55,10 @@ export default function Count() {
             </div>
           </div>
         </main>
-      </Body>
+      </Page.Body>
 
       <title>文字数カウンター - toolbox.naoty.dev</title>
       <meta name="description" content="テキストの文字数をカウントします" />
-    </Container>
+    </Page.Container>
   );
 }
