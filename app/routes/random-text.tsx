@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Container } from "~/components/container";
+import { Header } from "~/components/header";
 
 type CharSetType = (typeof charSets)[number]["id"];
 
@@ -102,21 +103,23 @@ export default function RandomText() {
 
   return (
     <Container className="bg-green-50">
-      <Breadcrumb.Root>
-        <Breadcrumb.List>
-          <Breadcrumb.Item>
-            <Breadcrumb.Link>
-              {({ className }) => (
-                <Link to="/" className={className}>
-                  ホーム
-                </Link>
-              )}
-            </Breadcrumb.Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Separator />
-          <Breadcrumb.CurrentItem>ランダム文字列生成</Breadcrumb.CurrentItem>
-        </Breadcrumb.List>
-      </Breadcrumb.Root>
+      <Header>
+        <Breadcrumb.Root>
+          <Breadcrumb.List>
+            <Breadcrumb.Item>
+              <Breadcrumb.Link>
+                {({ className }) => (
+                  <Link to="/" className={className}>
+                    ホーム
+                  </Link>
+                )}
+              </Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.CurrentItem>ランダム文字列生成</Breadcrumb.CurrentItem>
+          </Breadcrumb.List>
+        </Breadcrumb.Root>
+      </Header>
 
       <div className="w-full flex-grow flex items-center justify-center">
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">

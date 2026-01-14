@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Container } from "~/components/container";
+import { Header } from "~/components/header";
 
 const numberFormat = new Intl.NumberFormat("ja-JP");
 
@@ -14,21 +15,23 @@ export default function Count() {
 
   return (
     <Container className="bg-blue-50">
-      <Breadcrumb.Root>
-        <Breadcrumb.List>
-          <Breadcrumb.Item>
-            <Breadcrumb.Link>
-              {({ className }) => (
-                <Link to="/" className={className}>
-                  ホーム
-                </Link>
-              )}
-            </Breadcrumb.Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Separator />
-          <Breadcrumb.CurrentItem>文字数カウンター</Breadcrumb.CurrentItem>
-        </Breadcrumb.List>
-      </Breadcrumb.Root>
+      <Header>
+        <Breadcrumb.Root>
+          <Breadcrumb.List>
+            <Breadcrumb.Item>
+              <Breadcrumb.Link>
+                {({ className }) => (
+                  <Link to="/" className={className}>
+                    ホーム
+                  </Link>
+                )}
+              </Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.CurrentItem>文字数カウンター</Breadcrumb.CurrentItem>
+          </Breadcrumb.List>
+        </Breadcrumb.Root>
+      </Header>
 
       <div className="w-full flex-grow flex items-center justify-center">
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
