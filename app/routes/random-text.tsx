@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { Check, Copy, RotateCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
+import { Container } from "~/components/container";
 
 type CharSetType = (typeof charSets)[number]["id"];
 
@@ -99,7 +100,7 @@ export default function RandomText() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-green-50">
+    <Container className="bg-green-50">
       <nav className="w-full max-w-2xl mx-auto">
         <ol className="flex flex-row items-center gap-x-2 text-sm text-slate-500">
           <li>
@@ -194,6 +195,6 @@ export default function RandomText() {
           </div>
         </main>
       </div>
-    </div>
+    </Container>
   );
 }

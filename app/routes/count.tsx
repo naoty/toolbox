@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { Container } from "~/components/container";
 
 const numberFormat = new Intl.NumberFormat("ja-JP");
 
@@ -11,7 +12,7 @@ export default function Count() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-blue-50">
+    <Container className="bg-blue-50">
       <nav className="w-full max-w-2xl mx-auto">
         <ol className="flex flex-row items-center gap-x-2 text-sm text-slate-500">
           <li>
@@ -51,6 +52,6 @@ export default function Count() {
 
       <title>文字数カウンター - toolbox.naoty.dev</title>
       <meta name="description" content="テキストの文字数をカウントします" />
-    </div>
+    </Container>
   );
 }
