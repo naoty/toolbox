@@ -40,8 +40,23 @@ function Body({ children, className, ...props }: ComponentProps<"div">) {
   );
 }
 
+function Main({ children, className, ...props }: ComponentProps<"main">) {
+  return (
+    <main
+      className={twMerge(
+        className,
+        "w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200",
+      )}
+      {...props}
+    >
+      {children}
+    </main>
+  );
+}
+
 export const Page = {
   Container,
   Header,
   Body,
+  Main,
 };

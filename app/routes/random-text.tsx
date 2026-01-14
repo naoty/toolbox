@@ -121,7 +121,7 @@ export default function RandomText() {
       </Page.Header>
 
       <Page.Body>
-        <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
+        <Page.Main>
           <h1 className="text-xl font-bold text-slate-800">
             ランダム文字列生成
           </h1>
@@ -200,7 +200,7 @@ export default function RandomText() {
               </button>
             </div>
           </div>
-        </main>
+        </Page.Main>
       </Page.Body>
     </Page.Container>
   );

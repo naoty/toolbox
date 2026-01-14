@@ -33,7 +33,7 @@ export default function Count() {
       </Page.Header>
 
       <Page.Body>
-        <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
+        <Page.Main>
           <h1 className="text-xl font-bold text-slate-800">文字数カウンター</h1>
 
           <textarea
@@ -54,7 +54,7 @@ export default function Count() {
               <p className="text-3xl">{countWithoutSpaces}</p>
             </div>
           </div>
-        </main>
+        </Page.Main>
       </Page.Body>
 
       <title>文字数カウンター - toolbox.naoty.dev</title>
