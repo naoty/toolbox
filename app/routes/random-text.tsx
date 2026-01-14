@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { Check, Copy, RotateCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
+import { Breadcrumb } from "~/components/breadcrumb";
 import { Container } from "~/components/container";
 
 type CharSetType = (typeof charSets)[number]["id"];
@@ -101,17 +102,21 @@ export default function RandomText() {
 
   return (
     <Container className="bg-green-50">
-      <nav className="w-full max-w-2xl mx-auto">
-        <ol className="flex flex-row items-center gap-x-2 text-sm text-slate-500">
-          <li>
-            <Link to="/" className="hover:text-slate-700 transition-colors">
-              ホーム
-            </Link>
-          </li>
-          <li className="text-slate-300">/</li>
-          <li className="text-slate-800">ランダム文字列生成</li>
-        </ol>
-      </nav>
+      <Breadcrumb.Root>
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link>
+              {({ className }) => (
+                <Link to="/" className={className}>
+                  ホーム
+                </Link>
+              )}
+            </Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator />
+          <Breadcrumb.CurrentItem>ランダム文字列生成</Breadcrumb.CurrentItem>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
 
       <div className="w-full flex-grow flex items-center justify-center">
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
