@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { Body } from "~/components/body";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Container } from "~/components/container";
 import { Header } from "~/components/header";
@@ -33,7 +34,7 @@ export default function Count() {
         </Breadcrumb.Root>
       </Header>
 
-      <div className="w-full flex-grow flex items-center justify-center">
+      <Body>
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
           <h1 className="text-xl font-bold text-slate-800">文字数カウンター</h1>
 
@@ -56,7 +57,7 @@ export default function Count() {
             </div>
           </div>
         </main>
-      </div>
+      </Body>
 
       <title>文字数カウンター - toolbox.naoty.dev</title>
       <meta name="description" content="テキストの文字数をカウントします" />

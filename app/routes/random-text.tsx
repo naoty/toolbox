@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { Check, Copy, RotateCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
+import { Body } from "~/components/body";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Container } from "~/components/container";
 import { Header } from "~/components/header";
@@ -121,7 +122,7 @@ export default function RandomText() {
         </Breadcrumb.Root>
       </Header>
 
-      <div className="w-full flex-grow flex items-center justify-center">
+      <Body>
         <main className="w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200">
           <h1 className="text-xl font-bold text-slate-800">
             ランダム文字列生成
@@ -202,7 +203,7 @@ export default function RandomText() {
             </div>
           </div>
         </main>
-      </div>
+      </Body>
     </Container>
   );
 }
