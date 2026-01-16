@@ -202,6 +202,12 @@ export default function RandomText() {
           </div>
         </Page.Main>
       </Page.Body>
+
+      <title>ランダム文字列生成</title>
+      <meta
+        name="description"
+        content="指定した条件でランダムな文字列を生成します"
+      />
     </Page.Container>
   );
 }
