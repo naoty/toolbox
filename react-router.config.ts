@@ -2,6 +2,6 @@ import type { Config } from "@react-router/dev/config";
 
 export default {
   async prerender() {
-    return ["/", "/count", "/random-text"];
+    return ["/", "/count/", "/random-text/"];
   },
 } satisfies Config;
