@@ -4,7 +4,7 @@ const tools = [
   {
     name: "文字数カウンター",
     description: "テキストの文字数をカウントします",
-    path: "/count/",
+    path: "/count",
     icon: "Aa",
     iconBackgroundColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -12,7 +12,7 @@ const tools = [
   {
     name: "ランダム文字列生成",
     description: "指定した条件でランダムな文字列を生成します",
-    path: "/random-text/",
+    path: "/random-text",
     icon: "?#",
     iconBackgroundColor: "bg-green-100",
     iconColor: "text-green-600",
@@ -20,7 +20,7 @@ const tools = [
   {
     name: "UNIX時間変換",
     description: "UNIX時間と通常の日時を相互に変換します",
-    path: "/unixtime/",
+    path: "/unixtime",
     icon: "⏱️",
     iconBackgroundColor: "bg-purple-100",
     iconColor: "text-purple-600",
