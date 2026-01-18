@@ -122,12 +122,10 @@ export default function RandomText() {
 
       <Page.Body>
         <Page.Main>
-          <h1 className="text-xl font-bold text-slate-800">
-            ランダム文字列生成
-          </h1>
+          <h1 className="text-xl font-bold">ランダム文字列生成</h1>
 
           <div className="space-y-2">
-            <label htmlFor="length" className="block text-sm text-slate-700">
+            <label htmlFor="length" className="block text-sm text-secondary">
               文字数
             </label>
             <input
@@ -136,12 +134,12 @@ export default function RandomText() {
               min={1}
               value={lengthText}
               onChange={handleLengthChange}
-              className="w-full p-2 border border-slate-300 focus:outline-none focus:ring focus:ring-green-400 text-slate-700"
+              className="w-full p-2 border border-slate-300 focus:outline-none focus:ring focus:ring-green-400"
             />
           </div>
 
           <div className="space-y-2">
-            <p className="text-sm text-slate-700">文字種</p>
+            <p className="text-sm text-secondary">文字種</p>
             <div className="grid grid-cols-2 gap-2">
               {charSets.map((set) => (
                 <label
@@ -166,10 +164,8 @@ export default function RandomText() {
           </div>
 
           <div className="relative bg-green-50 p-4">
-            <p className="mb-2 text-sm text-slate-500">生成結果</p>
-            <p className="mb-4 text-lg font-mono text-slate-800 break-all">
-              {randomText}
-            </p>
+            <p className="mb-2 text-sm text-secondary">生成結果</p>
+            <p className="mb-4 text-lg font-mono break-all">{randomText}</p>
             <div className="flex gap-x-2">
               <button
                 className="flex-1 flex items-center justify-center gap-x-2 px-4 py-2 bg-green-600 text-white cursor-pointer transition-colors hover:bg-green-700"

@@ -4,4 +4,11 @@
   --font-sans:
     "Inter", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --text-color-primary: var(--color-slate-800);
+  --text-color-secondary: var(--color-slate-500);
+}
+
+body {
+  @apply text-primary;
 }

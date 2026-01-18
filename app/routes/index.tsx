@@ -31,7 +31,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-slate-50 p-4">
       <main className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-2xl font-bold text-slate-800 text-center mt-8">
+        <h1 className="text-2xl font-bold text-center mt-8">
           toolbox.naoty.dev
         </h1>
 
@@ -50,10 +50,8 @@ export default function Index() {
                 </span>
               </div>
               <div className="p-4 space-y-1">
-                <h2 className="text-lg font-semibold text-slate-800">
-                  {tool.name}
-                </h2>
-                <p className="text-sm text-slate-500">{tool.description}</p>
+                <h2 className="text-lg font-semibold">{tool.name}</h2>
+                <p className="text-sm text-secondary">{tool.description}</p>
               </div>
             </Link>
           ))}

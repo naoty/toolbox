@@ -15,7 +15,7 @@ function List({ children, className, ...props }: ComponentProps<"ol">) {
     <ol
       className={twMerge(
         className,
-        "flex flex-row items-center gap-x-2 text-sm text-slate-500",
+        "flex flex-row items-center gap-x-2 text-sm text-secondary",
       )}
       {...props}
     >
@@ -30,7 +30,7 @@ function Item({ children, ...props }: ComponentProps<"li">) {
 
 function CurrentItem({ children, ...props }: ComponentProps<"li">) {
   return (
-    <li className="text-slate-800" aria-current="page" {...props}>
+    <li aria-current="page" {...props}>
       {children}
     </li>
   );

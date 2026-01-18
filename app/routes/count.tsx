@@ -34,7 +34,7 @@ export default function Count() {
 
       <Page.Body>
         <Page.Main>
-          <h1 className="text-xl font-bold text-slate-800">文字数カウンター</h1>
+          <h1 className="text-xl font-bold">文字数カウンター</h1>
 
           <textarea
             placeholder="テキストを入力"
@@ -45,12 +45,12 @@ export default function Count() {
 
           <div className="flex flex-row gap-x-4">
             <div className="flex-1 space-y-2 text-center">
-              <p className="text-sm text-slate-500">文字数</p>
+              <p className="text-sm text-secondary">文字数</p>
               <p className="text-3xl">{count}</p>
             </div>
 
             <div className="flex-1 space-y-2 text-center">
-              <p className="text-sm text-slate-500">空白・改行を除く</p>
+              <p className="text-sm text-secondary">空白・改行を除く</p>
               <p className="text-3xl">{countWithoutSpaces}</p>
             </div>
           </div>
