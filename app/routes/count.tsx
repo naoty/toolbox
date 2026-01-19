@@ -57,7 +57,7 @@ export default function Count() {
         </Page.Main>
       </Page.Body>
 
-      <title>文字数カウンター - toolbox.naoty.dev</title>
+      <title>文字数カウンター</title>
       <meta name="description" content="テキストの文字数をカウントします" />
     </Page.Container>
   );
