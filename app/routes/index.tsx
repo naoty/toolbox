@@ -20,7 +20,7 @@ const tools = [
   {
     name: "UNIX時間変換",
     description: "UNIX時間と通常の日時を相互に変換します",
-    path: "/unixtime",
+    path: "/unix-time",
     icon: "⏱️",
     iconBackgroundColor: "bg-purple-100",
     iconColor: "text-purple-600",

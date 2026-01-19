@@ -4,4 +4,5 @@ export default [
   index("routes/index.tsx"),
   route("count", "routes/count.tsx"),
   route("random-text", "routes/random-text.tsx"),
+  route("unix-time", "routes/unix-time.tsx"),
 ] satisfies RouteConfig;
