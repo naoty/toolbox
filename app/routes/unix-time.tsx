@@ -1,9 +1,41 @@
 import { ArrowRightLeft } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
 export default function UnixTime() {
+  const currentDate = new Date();
+
+  const currentTimestampInSeconds = Math.floor(currentDate.getTime() / 1000);
+  const [timestamp, setTimestamp] = useState<number>(currentTimestampInSeconds);
+
+  const currentDateString = currentDate.toISOString().slice(0, 16);
+  const [dateString, setDateString] = useState(currentDateString);
+
+  const handleTimestampChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newTimestamp = event.currentTarget.valueAsNumber;
+    setTimestamp(newTimestamp);
+
+    const newDate = new Date(newTimestamp * 1000);
+    const newDateString = newDate.toISOString().slice(0, 16);
+    setDateString(newDateString);
+  };
+
+  const handleDateStringChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newDateString = event.currentTarget.value;
+    setDateString(newDateString);
+
+    // UTCとして解釈する
+    const newDate = new Date(`${newDateString}:00Z`);
+    const newTimestampInSeconds = Math.floor(newDate.getTime() / 1000);
+    setTimestamp(newTimestampInSeconds);
+  };
+
   return (
     <Page.Container className="bg-purple-50">
       <Page.Header>
@@ -39,13 +71,15 @@ export default function UnixTime() {
               <input
                 id="unix-time"
                 type="number"
+                value={timestamp}
+                onChange={handleTimestampChange}
                 placeholder="1767193319"
                 className="w-full p-2 border border-slate-300 font-mono focus:outline-none focus:ring-1 focus:ring-purple-400"
               />
             </div>
 
             <div className="self-stretch">
-              <ArrowRightLeft className="mt-10 size-6 text-purple-400" />
+              <ArrowRightLeft className="mt-10 size-5 text-purple-400" />
             </div>
 
             <div className="flex-1 space-y-2">
@@ -58,6 +92,8 @@ export default function UnixTime() {
               <input
                 id="datetime"
                 type="datetime-local"
+                value={dateString}
+                onChange={handleDateStringChange}
                 className="w-full p-2 border border-slate-300 font-mono focus:outline-none focus:ring-1 focus:ring-purple-400"
               />
             </div>
