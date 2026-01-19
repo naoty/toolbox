@@ -11,17 +11,16 @@ export default function UnixTime() {
   const currentDate = new Date();
 
   const [timeZone, setTimeZone] = useState<TimeZone>("jst");
-
-  const currentTimestampInSeconds = Math.floor(currentDate.getTime() / 1000);
-  const [timestamp, setTimestamp] = useState<number>(currentTimestampInSeconds);
-
-  const currentDateString =
+  const [timestamp, setTimestamp] = useState(() =>
+    Math.floor(currentDate.getTime() / 1000),
+  );
+  const [dateString, setDateString] = useState(() =>
     timeZone === "jst"
       ? new Date(currentDate.getTime() + 9 * 60 * 60 * 1000)
           .toISOString()
           .slice(0, 16)
-      : currentDate.toISOString().slice(0, 16);
-  const [dateString, setDateString] = useState(currentDateString);
+      : currentDate.toISOString().slice(0, 16),
+  );
 
   const handleTimestampChange = (
     event: React.ChangeEvent<HTMLInputElement>,
