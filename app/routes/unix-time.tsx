@@ -10,12 +10,17 @@ type TimeZone = "jst" | "utc";
 export default function UnixTime() {
   const currentDate = new Date();
 
-  const [timeZone, setTimeZone] = useState<TimeZone>("utc");
+  const [timeZone, setTimeZone] = useState<TimeZone>("jst");
 
   const currentTimestampInSeconds = Math.floor(currentDate.getTime() / 1000);
   const [timestamp, setTimestamp] = useState<number>(currentTimestampInSeconds);
 
-  const currentDateString = currentDate.toISOString().slice(0, 16);
+  const currentDateString =
+    timeZone === "jst"
+      ? new Date(currentDate.getTime() + 9 * 60 * 60 * 1000)
+          .toISOString()
+          .slice(0, 16)
+      : currentDate.toISOString().slice(0, 16);
   const [dateString, setDateString] = useState(currentDateString);
 
   const handleTimestampChange = (
@@ -24,7 +29,10 @@ export default function UnixTime() {
     const newTimestamp = event.currentTarget.valueAsNumber;
     setTimestamp(newTimestamp);
 
-    const newDate = new Date(newTimestamp * 1000);
+    const newDate =
+      timeZone === "jst"
+        ? new Date((newTimestamp + 9 * 60 * 60) * 1000)
+        : new Date(newTimestamp * 1000);
     const newDateString = newDate.toISOString().slice(0, 16);
     setDateString(newDateString);
   };
@@ -35,10 +43,25 @@ export default function UnixTime() {
     const newDateString = event.currentTarget.value;
     setDateString(newDateString);
 
-    // UTCとして解釈する
-    const newDate = new Date(`${newDateString}:00Z`);
+    const newDate =
+      timeZone === "jst"
+        ? new Date(`${newDateString}:00+09:00`)
+        : new Date(`${newDateString}:00Z`);
     const newTimestampInSeconds = Math.floor(newDate.getTime() / 1000);
     setTimestamp(newTimestampInSeconds);
+  };
+
+  const handleTimeZoneChange = (newTimeZone: TimeZone) => {
+    return () => {
+      setTimeZone(newTimeZone);
+
+      const newDate =
+        newTimeZone === "jst"
+          ? new Date((timestamp + 9 * 60 * 60) * 1000)
+          : new Date(timestamp * 1000);
+      const newDateString = newDate.toISOString().slice(0, 16);
+      setDateString(newDateString);
+    };
   };
 
   return (
@@ -94,7 +117,7 @@ export default function UnixTime() {
                 </label>
                 <div className="flex border border-slate-300 rounded-lg divide-x divide-slate-300 overflow-hidden">
                   <button
-                    onClick={() => setTimeZone("jst")}
+                    onClick={handleTimeZoneChange("jst")}
                     className={clsx(
                       "px-2 py-0.5 text-xs text-secondary cursor-pointer transition-colors",
                       timeZone === "jst" && "bg-purple-500 text-white",
@@ -103,7 +126,7 @@ export default function UnixTime() {
                     JST
                   </button>
                   <button
-                    onClick={() => setTimeZone("utc")}
+                    onClick={handleTimeZoneChange("utc")}
                     className={clsx(
                       "px-2 py-0.5 text-xs text-secondary cursor-pointer transition-colors",
                       timeZone === "utc" && "bg-purple-500 text-white",
