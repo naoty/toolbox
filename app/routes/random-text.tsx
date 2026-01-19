@@ -147,8 +147,8 @@ export default function RandomText() {
                   className={clsx(
                     "flex items-center gap-x-2 p-2 border cursor-pointer transition-colors",
                     selectedCharSetIds.includes(set.id)
-                      ? "bg-green-50 border-green-300"
-                      : "bg-slate-50 border-slate-200",
+                      ? "bg-green-50 border-green-300 hover:bg-green-100 hover:border-green-400"
+                      : "bg-slate-50 border-slate-200 hover:bg-slate-100 hover:border-slate-300",
                   )}
                 >
                   <input

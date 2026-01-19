@@ -118,8 +118,10 @@ export default function UnixTime() {
                   <button
                     onClick={handleTimeZoneChange("jst")}
                     className={clsx(
-                      "px-2 py-0.5 text-xs text-secondary cursor-pointer transition-colors",
-                      timeZone === "jst" && "bg-purple-500 text-white",
+                      "px-2 py-0.5 text-xs text-secondary transition-colors",
+                      timeZone === "jst"
+                        ? "bg-purple-500 text-white"
+                        : "cursor-pointer hover:bg-purple-100",
                     )}
                   >
                     JST
@@ -127,8 +129,10 @@ export default function UnixTime() {
                   <button
                     onClick={handleTimeZoneChange("utc")}
                     className={clsx(
-                      "px-2 py-0.5 text-xs text-secondary cursor-pointer transition-colors",
-                      timeZone === "utc" && "bg-purple-500 text-white",
+                      "px-2 py-0.5 text-xs text-secondary transition-colors",
+                      timeZone === "utc"
+                        ? "bg-purple-500 text-white"
+                        : "cursor-pointer hover:bg-purple-100",
                     )}
                   >
                     UTC
