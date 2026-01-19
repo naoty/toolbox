@@ -1,11 +1,16 @@
+import clsx from "clsx";
 import { ArrowRightLeft } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
+type TimeZone = "jst" | "utc";
+
 export default function UnixTime() {
   const currentDate = new Date();
+
+  const [timeZone, setTimeZone] = useState<TimeZone>("utc");
 
   const currentTimestampInSeconds = Math.floor(currentDate.getTime() / 1000);
   const [timestamp, setTimestamp] = useState<number>(currentTimestampInSeconds);
@@ -60,7 +65,7 @@ export default function UnixTime() {
         <Page.Main>
           <h1 className="text-xl font-bold">UNIX時間変換</h1>
 
-          <div className="flex flex-row items-center gap-x-2">
+          <div className="flex items-center gap-x-2">
             <div className="flex-1 space-y-2">
               <label
                 htmlFor="unix-time"
@@ -83,12 +88,31 @@ export default function UnixTime() {
             </div>
 
             <div className="flex-1 space-y-2">
-              <label
-                htmlFor="datetime"
-                className="block text-sm text-secondary"
-              >
-                日時
-              </label>
+              <div className="flex justify-between items-center">
+                <label htmlFor="datetime" className="text-sm text-secondary">
+                  日時
+                </label>
+                <div className="flex border border-slate-300 rounded-lg divide-x divide-slate-300 overflow-hidden">
+                  <button
+                    onClick={() => setTimeZone("jst")}
+                    className={clsx(
+                      "px-2 py-0.5 text-xs text-secondary cursor-pointer transition-colors",
+                      timeZone === "jst" && "bg-purple-500 text-white",
+                    )}
+                  >
+                    JST
+                  </button>
+                  <button
+                    onClick={() => setTimeZone("utc")}
+                    className={clsx(
+                      "px-2 py-0.5 text-xs text-secondary cursor-pointer transition-colors",
+                      timeZone === "utc" && "bg-purple-500 text-white",
+                    )}
+                  >
+                    UTC
+                  </button>
+                </div>
+              </div>
               <input
                 id="datetime"
                 type="datetime-local"
