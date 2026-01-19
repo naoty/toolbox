@@ -25,6 +25,14 @@ const tools = [
     iconBackgroundColor: "bg-purple-100",
     iconColor: "text-purple-600",
   },
+  {
+    name: "正規表現テスター",
+    description: "正規表現を任意の文字列でテストします",
+    path: "/regexp-tester",
+    icon: "/.*/",
+    iconBackgroundColor: "bg-orange-100",
+    iconColor: "text-orange-600",
+  },
 ];
 
 export default function Index() {
