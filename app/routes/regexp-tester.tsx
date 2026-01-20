@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { encode } from "html-entities";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
@@ -11,34 +12,54 @@ const flags = [
   { value: "i" as Flag, label: "ignore case" },
 ];
 
-function match(text: string, regexpText: string, flags: Set<Flag>) {
-  if (text === "" || regexpText === "") return null;
+function highlight(text: string, regexpText: string, flags: Set<Flag>) {
+  if (text === "") return " ";
+  if (regexpText === "") return encode(text);
 
+  let regexp: RegExp;
   try {
-    const regexp = new RegExp(regexpText, [...flags].join(""));
-    return regexp.exec(text);
+    regexp = new RegExp(regexpText, [...flags].join(""));
   } catch {
-    return null;
+    return encode(text);
   }
-}
 
-function escapeHTML(text: string) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
-}
+  const parts: string[] = [];
 
-function buildHighlights(text: string, match: RegExpExecArray | null) {
-  if (match === null) return escapeHTML(text);
+  if (regexp.global) {
+    let match: RegExpExecArray | null;
+    let firstIndex = 0;
+    while ((match = regexp.exec(text)) !== null) {
+      const start = match.index;
+      const end = regexp.lastIndex;
 
-  const start = match.index;
-  const end = start + match[0].length;
+      parts.push(encode(text.slice(firstIndex, start)));
+      parts.push(
+        `<span class="bg-orange-300 font-semibold">${encode(
+          text.slice(start, end),
+        )}</span>`,
+      );
 
-  return [
-    escapeHTML(text.slice(0, start)),
-    `<span class="bg-orange-300 font-semibold">${escapeHTML(text.slice(start, end))}</span>`,
-    escapeHTML(text.slice(end)),
-  ].join("");
+      firstIndex = end;
+    }
+
+    parts.push(encode(text.slice(firstIndex)));
+  } else {
+    const match = regexp.exec(text);
+    if (match === null) return encode(text);
+
+    const start = match.index;
+    const end = start + match[0].length;
+
+    parts.push(encode(text.slice(0, start)));
+    parts.push(
+      `<span class="bg-orange-300 font-semibold">${encode(
+        text.slice(start, end),
+      )}</span>`,
+    );
+    parts.push(encode(text.slice(end)));
+  }
+
+  return parts.join("");
 }
 
 export default function RegexpTester() {
@@ -46,7 +67,7 @@ export default function RegexpTester() {
   const [text, setText] = useState("");
   const [selectedFlags, setSelectedFlags] = useState<Set<Flag>>(new Set());
 
-  const matched = match(text, regexpText, selectedFlags);
+  const highlightedText = highlight(text, regexpText, selectedFlags);
 
   const handleFlagClick = (flag: Flag) => {
     return () => {
@@ -130,8 +151,7 @@ export default function RegexpTester() {
               <pre
                 className="p-2 border border-slate-300"
                 dangerouslySetInnerHTML={{
-                  __html:
-                    text.length === 0 ? " " : buildHighlights(text, matched),
+                  __html: highlightedText,
                 }}
               />
 
