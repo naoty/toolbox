@@ -3,8 +3,34 @@ import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
+function match(text: string, regexpText: string) {
+  if (text === "" || regexpText === "") return null;
+
+  try {
+    const regexp = new RegExp(regexpText);
+    return regexp.exec(text);
+  } catch {
+    return null;
+  }
+}
+
+function buildHighlights(text: string, match: RegExpExecArray | null) {
+  if (match === null) return text;
+
+  const start = match.index;
+  const end = start + match[0].length;
+
+  return [
+    text.slice(0, start),
+    `<span class="bg-orange-300 font-semibold">${text.slice(start, end)}</span>`,
+    text.slice(end),
+  ].join("");
+}
+
 export default function RegexpTester() {
+  const [regexpText, setRegexpText] = useState("");
   const [text, setText] = useState("");
+  const matched = match(text, regexpText);
 
   return (
     <Page.Container className="bg-orange-50">
@@ -39,7 +65,10 @@ export default function RegexpTester() {
               <input
                 type="text"
                 id="regexp"
+                value={regexpText}
+                onChange={(e) => setRegexpText(e.currentTarget.value)}
                 placeholder="[a-z]+"
+                spellCheck={false}
                 className="flex-1 focus:outline-none"
               />
               <span className="text-secondary">/</span>
@@ -52,9 +81,13 @@ export default function RegexpTester() {
             </label>
 
             <div className="relative font-mono">
-              <pre className="p-2 border border-slate-300">
-                {text.length === 0 ? " " : text}
-              </pre>
+              <pre
+                className="p-2 border border-slate-300"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    text.length === 0 ? " " : buildHighlights(text, matched),
+                }}
+              />
 
               <textarea
                 id="text"
