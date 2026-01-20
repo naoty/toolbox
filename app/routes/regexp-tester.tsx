@@ -87,6 +87,7 @@ export default function RegexpTester() {
             </label>
 
             <div className="relative font-mono">
+              {/* マッチ部分をハイライトさせるためtextareaの裏にstyleを適用したHTMLを表示する */}
               <pre
                 className="p-2 border border-slate-300"
                 dangerouslySetInnerHTML={{
@@ -95,6 +96,7 @@ export default function RegexpTester() {
                 }}
               />
 
+              {/* 入力のみを受け付ける */}
               <textarea
                 id="text"
                 onChange={(e) => setText(e.currentTarget.value)}
