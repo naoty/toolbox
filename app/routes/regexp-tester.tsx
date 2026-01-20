@@ -1,13 +1,21 @@
+import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
-function match(text: string, regexpText: string) {
+type Flag = "g" | "i";
+
+const flags = [
+  { value: "g" as Flag, label: "global" },
+  { value: "i" as Flag, label: "ignore case" },
+];
+
+function match(text: string, regexpText: string, flags: Set<Flag>) {
   if (text === "" || regexpText === "") return null;
 
   try {
-    const regexp = new RegExp(regexpText);
+    const regexp = new RegExp(regexpText, [...flags].join(""));
     return regexp.exec(text);
   } catch {
     return null;
@@ -36,7 +44,19 @@ function buildHighlights(text: string, match: RegExpExecArray | null) {
 export default function RegexpTester() {
   const [regexpText, setRegexpText] = useState("");
   const [text, setText] = useState("");
-  const matched = match(text, regexpText);
+  const [selectedFlags, setSelectedFlags] = useState<Set<Flag>>(new Set());
+
+  const matched = match(text, regexpText, selectedFlags);
+
+  const handleFlagClick = (flag: Flag) => {
+    return () => {
+      setSelectedFlags((previous) => {
+        const next = new Set(previous);
+        next.has(flag) ? next.delete(flag) : next.add(flag);
+        return next;
+      });
+    };
+  };
 
   return (
     <Page.Container className="bg-orange-50">
@@ -78,7 +98,25 @@ export default function RegexpTester() {
                 spellCheck={false}
                 className="focus:outline-none"
               />
-              <span className="text-secondary">/</span>
+              <span className="text-secondary">
+                /{[...selectedFlags].join("")}
+              </span>
+            </div>
+            <div className="flex gap-x-2">
+              {flags.map((flag) => (
+                <button
+                  key={flag.value}
+                  onClick={handleFlagClick(flag.value)}
+                  className={clsx(
+                    "flex gap-x-1 px-2 py-1 border rounded-lg text-xs cursor-pointer transition-colors",
+                    selectedFlags.has(flag.value)
+                      ? "text-primary bg-orange-50 border-orange-200 hover:border-orange-400"
+                      : "text-secondary bg-slate-50 border-slate-200 hover:border-slate-400",
+                  )}
+                >
+                  {flag.label}
+                </button>
+              ))}
             </div>
           </div>
 
