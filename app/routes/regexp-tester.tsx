@@ -14,16 +14,22 @@ function match(text: string, regexpText: string) {
   }
 }
 
+function escapeHTML(text: string) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 function buildHighlights(text: string, match: RegExpExecArray | null) {
-  if (match === null) return text;
+  if (match === null) return escapeHTML(text);
 
   const start = match.index;
   const end = start + match[0].length;
 
   return [
-    text.slice(0, start),
-    `<span class="bg-orange-300 font-semibold">${text.slice(start, end)}</span>`,
-    text.slice(end),
+    escapeHTML(text.slice(0, start)),
+    `<span class="bg-orange-300 font-semibold">${escapeHTML(text.slice(start, end))}</span>`,
+    escapeHTML(text.slice(end)),
   ].join("");
 }
 
