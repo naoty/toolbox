@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
 export default function RegexpTester() {
+  const [text, setText] = useState("");
+
   return (
     <Page.Container className="bg-orange-50">
       <Page.Header>
@@ -44,14 +47,22 @@ export default function RegexpTester() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="test-text" className="block text-sm text-secondary">
+            <label htmlFor="text" className="block text-sm text-secondary">
               テスト用文字列
             </label>
-            <textarea
-              id="test-text"
-              placeholder="テストしたい文字列を入力"
-              className="w-full p-2 field-sizing-content border border-slate-300 focus:outline-none focus:ring focus:ring-orange-300"
-            />
+
+            <div className="relative font-mono">
+              <pre className="p-2 border border-slate-300">
+                {text.length === 0 ? " " : text}
+              </pre>
+
+              <textarea
+                id="text"
+                onChange={(e) => setText(e.currentTarget.value)}
+                spellCheck={false}
+                className="absolute inset-0 p-2 border border-transparent text-transparent caret-slate-800 focus:outline-none"
+              />
+            </div>
           </div>
         </Page.Main>
       </Page.Body>
