@@ -66,7 +66,7 @@ export default function RegexpTester() {
             <label htmlFor="regexp" className="block text-sm text-secondary">
               正規表現
             </label>
-            <div className="flex items-center gap-x-1 px-3 py-2 border border-slate-300 font-mono focus-within:ring focus-within:ring-orange-400 focus-within:border-transparent">
+            <div className="flex items-center gap-x-0.5 px-3 py-2 border border-slate-300 font-mono focus-within:ring focus-within:ring-orange-400 focus-within:border-transparent">
               <span className="text-secondary">/</span>
               <input
                 type="text"
@@ -74,8 +74,9 @@ export default function RegexpTester() {
                 value={regexpText}
                 onChange={(e) => setRegexpText(e.currentTarget.value)}
                 placeholder="[a-z]+"
+                size={Math.max(5, regexpText.length)}
                 spellCheck={false}
-                className="flex-1 focus:outline-none"
+                className="focus:outline-none"
               />
               <span className="text-secondary">/</span>
             </div>
