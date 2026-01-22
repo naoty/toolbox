@@ -33,6 +33,14 @@ const tools = [
     iconBackgroundColor: "bg-orange-100",
     iconColor: "text-orange-600",
   },
+  {
+    name: "テーブル変換",
+    description: "CSVなどのデータを表形式に変換します",
+    path: "/table",
+    icon: "▦",
+    iconBackgroundColor: "bg-red-100",
+    iconColor: "text-red-600",
+  },
 ];
 
 export default function Index() {

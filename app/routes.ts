@@ -6,4 +6,5 @@ export default [
   route("random-text", "routes/random-text.tsx"),
   route("unix-time", "routes/unix-time.tsx"),
   route("regexp-tester", "routes/regexp-tester.tsx"),
+  route("table", "routes/table.tsx"),
 ] satisfies RouteConfig;
