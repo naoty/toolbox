@@ -1,8 +1,59 @@
+import { parse } from "csv-parse/browser/esm/sync";
+import { useState } from "react";
 import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
+function parseCSV(csv: string): string[][] {
+  try {
+    return parse(csv);
+  } catch (error) {
+    return [];
+  }
+}
+
+function formatASCII(records: string[][]) {
+  if (records.length === 0) return "";
+
+  const columnWidths: number[] = [];
+
+  for (let i = 0; i < records.length; i++) {
+    const record = records[i];
+    for (let j = 0; j < record.length; j++) {
+      const value = record[j];
+      columnWidths[j] = Math.max(columnWidths.at(j) ?? 0, value.length);
+    }
+  }
+
+  const rowWidth =
+    columnWidths.map((length) => length + 3).reduce((a, b) => a + b, 0) + 1;
+
+  const lines = [];
+  lines.push("+" + "-".repeat(rowWidth - 2) + "+");
+
+  for (let i = 0; i < records.length; i++) {
+    const line = [];
+    line.push("|");
+
+    const record = records[i];
+    for (let j = 0; j < record.length; j++) {
+      const value = record[j];
+      line.push(` ${value.padEnd(columnWidths[j], " ")} |`);
+    }
+
+    lines.push(line.join(""));
+  }
+
+  lines.push("+" + "-".repeat(rowWidth - 2) + "+");
+  return lines.join("\n");
+}
+
 export default function Table() {
+  const [input, setInput] = useState("");
+
+  const records = parseCSV(input);
+  const output = formatASCII(records);
+
   return (
     <Page.Container className="bg-red-50">
       <Page.Header className="max-w-4xl">
@@ -36,9 +87,11 @@ export default function Table() {
               </div>
               <textarea
                 id="editor"
+                value={input}
+                onChange={(e) => setInput(e.currentTarget.value)}
                 rows={20}
                 spellCheck={false}
-                className="w-full p-2 border border-slate-300 font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
+                className="w-full p-2 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
               />
             </div>
 
@@ -50,10 +103,11 @@ export default function Table() {
               </div>
               <textarea
                 id="preview"
+                value={output}
                 readOnly
                 rows={20}
                 spellCheck={false}
-                className="w-full p-2 border border-slate-300 font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
+                className="w-full p-2 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
               />
             </div>
           </div>
