@@ -5,8 +5,8 @@ function Container({ children, className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={twMerge(
-        className,
         "min-h-screen flex flex-col items-center justify-center p-4",
+        className,
       )}
       {...props}
     >
@@ -18,7 +18,7 @@ function Container({ children, className, ...props }: ComponentProps<"div">) {
 function Header({ children, className, ...props }: ComponentProps<"header">) {
   return (
     <header
-      className={twMerge(className, "w-full max-w-2xl mx-auto")}
+      className={twMerge("w-full max-w-2xl mx-auto", className)}
       {...props}
     >
       {children}
@@ -30,8 +30,8 @@ function Body({ children, className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={twMerge(
-        className,
         "w-full flex-grow flex items-center justify-center",
+        className,
       )}
       {...props}
     >
@@ -44,8 +44,8 @@ function Main({ children, className, ...props }: ComponentProps<"main">) {
   return (
     <main
       className={twMerge(
-        className,
         "w-full max-w-2xl p-4 space-y-6 bg-white shadow-sm border border-slate-200",
+        className,
       )}
       {...props}
     >
