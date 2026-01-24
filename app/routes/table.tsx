@@ -26,11 +26,11 @@ function formatASCII(records: string[][], { hasHeader = false } = {}) {
     }
   }
 
-  const rowWidth =
-    columnWidths.map((length) => length + 3).reduce((a, b) => a + b, 0) + 1;
+  const border =
+    "+-" + columnWidths.map((length) => "-".repeat(length)).join("-+-") + "-+";
 
   const lines = [];
-  lines.push("+" + "-".repeat(rowWidth - 2) + "+");
+  lines.push(border);
 
   for (let i = 0; i < records.length; i++) {
     const line = [];
@@ -45,11 +45,11 @@ function formatASCII(records: string[][], { hasHeader = false } = {}) {
     lines.push(line.join(""));
 
     if (hasHeader && i === 0) {
-      lines.push("+" + "-".repeat(rowWidth - 2) + "+");
+      lines.push(border);
     }
   }
 
-  lines.push("+" + "-".repeat(rowWidth - 2) + "+");
+  lines.push(border);
   return lines.join("\n");
 }
 
