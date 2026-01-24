@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { parse } from "csv-parse/browser/esm/sync";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -12,7 +13,7 @@ function parseCSV(csv: string): string[][] {
   }
 }
 
-function formatASCII(records: string[][]) {
+function formatASCII(records: string[][], { hasHeader = false } = {}) {
   if (records.length === 0) return "";
 
   const columnWidths: number[] = [];
@@ -42,6 +43,10 @@ function formatASCII(records: string[][]) {
     }
 
     lines.push(line.join(""));
+
+    if (hasHeader && i === 0) {
+      lines.push("+" + "-".repeat(rowWidth - 2) + "+");
+    }
   }
 
   lines.push("+" + "-".repeat(rowWidth - 2) + "+");
@@ -50,9 +55,10 @@ function formatASCII(records: string[][]) {
 
 export default function Table() {
   const [input, setInput] = useState("");
+  const [hasHeader, setHasHeader] = useState(false);
 
   const records = parseCSV(input);
-  const output = formatASCII(records);
+  const output = formatASCII(records, { hasHeader });
 
   return (
     <Page.Container className="bg-red-50">
@@ -89,23 +95,35 @@ export default function Table() {
                 id="editor"
                 value={input}
                 onChange={(e) => setInput(e.currentTarget.value)}
-                rows={20}
+                rows={10}
                 spellCheck={false}
                 className="w-full p-2 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
               />
             </div>
 
             <div className="flex-1 space-y-2">
-              <div>
+              <div className="flex justify-between items-center">
                 <label htmlFor="preview" className="text-secondary">
                   出力
                 </label>
+
+                <button
+                  onClick={() => setHasHeader((previous) => !previous)}
+                  className={clsx(
+                    "px-2 py-1 border rounded-lg text-xs cursor-pointer transition-colors",
+                    hasHeader
+                      ? "text-primary bg-red-50 border-red-200 hover:border-red-400 active:bg-red-100"
+                      : "text-secondary bg-slate-50 border-slate-200 hover:border-slate-400 active:bg-slate-100",
+                  )}
+                >
+                  ヘッダー
+                </button>
               </div>
               <textarea
                 id="preview"
                 value={output}
                 readOnly
-                rows={20}
+                rows={10}
                 spellCheck={false}
                 className="w-full p-2 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
               />
