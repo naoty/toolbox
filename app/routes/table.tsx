@@ -5,9 +5,21 @@ import { Link } from "react-router";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
-function parseCSV(csv: string): string[][] {
+type InputType = (typeof inputTypes)[number]["value"];
+type OutputType = (typeof outputTypes)[number]["value"];
+
+const inputTypes = [
+  { value: "csv", label: "CSV" },
+  { value: "tsv", label: "TSV" },
+] as const;
+const outputTypes = [{ value: "ascii", label: "ASCII" }] as const;
+
+function parseCSV(
+  csv: string,
+  { delimiter }: { delimiter?: string } = {},
+): string[][] {
   try {
-    return parse(csv);
+    return parse(csv, { delimiter });
   } catch (error) {
     return [];
   }
@@ -55,9 +67,14 @@ function formatASCII(records: string[][], { hasHeader = false } = {}) {
 
 export default function Table() {
   const [input, setInput] = useState("");
+  const [inputType, setInputType] = useState<InputType>("csv");
+  const [outputType, setOutputType] = useState<OutputType>("ascii");
   const [hasHeader, setHasHeader] = useState(false);
 
-  const records = parseCSV(input);
+  const records =
+    inputType === "csv"
+      ? parseCSV(input)
+      : parseCSV(input, { delimiter: "\t" });
   const output = formatASCII(records, { hasHeader });
 
   return (
@@ -86,13 +103,21 @@ export default function Table() {
 
           <div className="flex gap-x-4">
             <div className="flex-1 space-y-2">
-              <div>
-                <label htmlFor="editor" className="text-secondary">
-                  入力
-                </label>
-              </div>
+              <select
+                value={inputType}
+                onChange={(e) =>
+                  setInputType(e.currentTarget.value as InputType)
+                }
+                className="text-secondary"
+              >
+                {inputTypes.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+
               <textarea
-                id="editor"
                 value={input}
                 onChange={(e) => setInput(e.currentTarget.value)}
                 rows={10}
@@ -103,9 +128,19 @@ export default function Table() {
 
             <div className="flex-1 space-y-2">
               <div className="flex justify-between items-center">
-                <label htmlFor="preview" className="text-secondary">
-                  出力
-                </label>
+                <select
+                  value={outputType}
+                  onChange={(e) =>
+                    setOutputType(e.currentTarget.value as OutputType)
+                  }
+                  className="text-secondary"
+                >
+                  {outputTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
 
                 <button
                   onClick={() => setHasHeader((previous) => !previous)}
