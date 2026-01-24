@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { parse } from "csv-parse/browser/esm/sync";
 import { useState } from "react";
 import { Link } from "react-router";
+import stringWidth from "string-width";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
@@ -34,12 +35,12 @@ function formatASCII(records: string[][], { hasHeader = false } = {}) {
     const record = records[i];
     for (let j = 0; j < record.length; j++) {
       const value = record[j];
-      columnWidths[j] = Math.max(columnWidths.at(j) ?? 0, value.length);
+      columnWidths[j] = Math.max(columnWidths.at(j) ?? 0, stringWidth(value));
     }
   }
 
   const border =
-    "+-" + columnWidths.map((length) => "-".repeat(length)).join("-+-") + "-+";
+    "+-" + columnWidths.map((width) => "-".repeat(width)).join("-+-") + "-+";
 
   const lines = [];
   lines.push(border);
@@ -51,7 +52,9 @@ function formatASCII(records: string[][], { hasHeader = false } = {}) {
     const record = records[i];
     for (let j = 0; j < record.length; j++) {
       const value = record[j];
-      line.push(` ${value.padEnd(columnWidths[j], " ")} |`);
+      line.push(` ${value}`);
+      line.push(" ".repeat(columnWidths[j] - stringWidth(value)));
+      line.push(" |");
     }
 
     lines.push(line.join(""));
