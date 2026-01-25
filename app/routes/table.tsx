@@ -13,7 +13,10 @@ const inputTypes = [
   { value: "csv", label: "CSV" },
   { value: "tsv", label: "TSV" },
 ] as const;
-const outputTypes = [{ value: "ascii", label: "ASCII" }] as const;
+const outputTypes = [
+  { value: "ascii", label: "ASCII" },
+  { value: "markdown", label: "Markdown" },
+] as const;
 
 function parseCSV(
   csv: string,
@@ -68,6 +71,46 @@ function formatASCII(records: string[][], { hasHeader = false } = {}) {
   return lines.join("\n");
 }
 
+function formatMarkdown(records: string[][]) {
+  if (records.length === 0) return "";
+
+  const columnWidths: number[] = [];
+
+  for (let i = 0; i < records.length; i++) {
+    const record = records[i];
+    for (let j = 0; j < record.length; j++) {
+      const value = record[j];
+      // 最低幅を3にする
+      columnWidths[j] = Math.max(columnWidths.at(j) ?? 3, stringWidth(value));
+    }
+  }
+
+  const border =
+    "| " + columnWidths.map((width) => "-".repeat(width)).join(" | ") + " |";
+
+  const lines = [];
+  for (let i = 0; i < records.length; i++) {
+    const line = [];
+    line.push("|");
+
+    const record = records[i];
+    for (let j = 0; j < record.length; j++) {
+      const value = record[j];
+      line.push(` ${value}`);
+      line.push(" ".repeat(columnWidths[j] - stringWidth(value)));
+      line.push(" |");
+    }
+
+    lines.push(line.join(""));
+
+    if (i === 0) {
+      lines.push(border);
+    }
+  }
+
+  return lines.join("\n");
+}
+
 export default function Table() {
   const [input, setInput] = useState("");
   const [inputType, setInputType] = useState<InputType>("csv");
@@ -78,7 +121,10 @@ export default function Table() {
     inputType === "csv"
       ? parseCSV(input)
       : parseCSV(input, { delimiter: "\t" });
-  const output = formatASCII(records, { hasHeader });
+  const output =
+    outputType === "ascii"
+      ? formatASCII(records, { hasHeader })
+      : formatMarkdown(records);
 
   return (
     <Page.Container className="bg-red-50">
