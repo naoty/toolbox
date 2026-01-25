@@ -157,7 +157,7 @@ export default function Table() {
                 onChange={(e) =>
                   setInputType(e.currentTarget.value as InputType)
                 }
-                className="text-secondary"
+                className="pr-1 text-secondary focus:outline-none"
               >
                 {inputTypes.map((type) => (
                   <option key={type.value} value={type.value}>
@@ -182,7 +182,7 @@ export default function Table() {
                   onChange={(e) =>
                     setOutputType(e.currentTarget.value as OutputType)
                   }
-                  className="text-secondary"
+                  className="pr-1 text-secondary focus:outline-none"
                 >
                   {outputTypes.map((type) => (
                     <option key={type.value} value={type.value}>
