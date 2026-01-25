@@ -6,14 +6,14 @@ import stringWidth from "string-width";
 import { Breadcrumb } from "~/components/breadcrumb";
 import { Page } from "~/components/page";
 
-type InputType = (typeof inputTypes)[number]["value"];
-type OutputType = (typeof outputTypes)[number]["value"];
+type InputFormat = (typeof inputFormats)[number]["value"];
+type OutputFormat = (typeof outputFormats)[number]["value"];
 
-const inputTypes = [
+const inputFormats = [
   { value: "csv", label: "CSV" },
   { value: "tsv", label: "TSV" },
 ] as const;
-const outputTypes = [
+const outputFormats = [
   { value: "ascii", label: "ASCII" },
   { value: "markdown", label: "Markdown" },
 ] as const;
@@ -113,16 +113,16 @@ function formatMarkdown(records: string[][]) {
 
 export default function Table() {
   const [input, setInput] = useState("");
-  const [inputType, setInputType] = useState<InputType>("csv");
-  const [outputType, setOutputType] = useState<OutputType>("ascii");
+  const [inputFormat, setInputFormat] = useState<InputFormat>("csv");
+  const [outputFormat, setOutputFormat] = useState<OutputFormat>("ascii");
   const [hasHeader, setHasHeader] = useState(false);
 
   const records =
-    inputType === "csv"
+    inputFormat === "csv"
       ? parseCSV(input)
       : parseCSV(input, { delimiter: "\t" });
   const output =
-    outputType === "ascii"
+    outputFormat === "ascii"
       ? formatASCII(records, { hasHeader })
       : formatMarkdown(records);
 
@@ -153,13 +153,13 @@ export default function Table() {
           <div className="flex gap-x-4">
             <div className="flex-1 space-y-2">
               <select
-                value={inputType}
+                value={inputFormat}
                 onChange={(e) =>
-                  setInputType(e.currentTarget.value as InputType)
+                  setInputFormat(e.currentTarget.value as InputFormat)
                 }
-                className="pr-1 text-secondary focus:outline-none"
+                className="min-h-8 pr-1 text-secondary focus:outline-none"
               >
-                {inputTypes.map((type) => (
+                {inputFormats.map((type) => (
                   <option key={type.value} value={type.value}>
                     {type.label}
                   </option>
@@ -176,32 +176,34 @@ export default function Table() {
             </div>
 
             <div className="flex-1 space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center min-h-8">
                 <select
-                  value={outputType}
+                  value={outputFormat}
                   onChange={(e) =>
-                    setOutputType(e.currentTarget.value as OutputType)
+                    setOutputFormat(e.currentTarget.value as OutputFormat)
                   }
                   className="pr-1 text-secondary focus:outline-none"
                 >
-                  {outputTypes.map((type) => (
+                  {outputFormats.map((type) => (
                     <option key={type.value} value={type.value}>
                       {type.label}
                     </option>
                   ))}
                 </select>
 
-                <button
-                  onClick={() => setHasHeader((previous) => !previous)}
-                  className={clsx(
-                    "px-2 py-1 border rounded-lg text-xs cursor-pointer transition-colors",
-                    hasHeader
-                      ? "text-primary bg-red-50 border-red-200 hover:border-red-400 active:bg-red-100"
-                      : "text-secondary bg-slate-50 border-slate-200 hover:border-slate-400 active:bg-slate-100",
-                  )}
-                >
-                  ヘッダー
-                </button>
+                {outputFormat === "ascii" && (
+                  <button
+                    onClick={() => setHasHeader((previous) => !previous)}
+                    className={clsx(
+                      "px-2 py-1 border rounded-lg text-xs cursor-pointer transition-colors",
+                      hasHeader
+                        ? "text-primary bg-red-50 border-red-200 hover:border-red-400 active:bg-red-100"
+                        : "text-secondary bg-slate-50 border-slate-200 hover:border-slate-400 active:bg-slate-100",
+                    )}
+                  >
+                    ヘッダー
+                  </button>
+                )}
               </div>
               <textarea
                 id="preview"
