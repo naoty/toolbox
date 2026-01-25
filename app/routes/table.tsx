@@ -125,7 +125,7 @@ export default function Table() {
                 onChange={(e) => setInput(e.currentTarget.value)}
                 rows={10}
                 spellCheck={false}
-                className="w-full p-2 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
+                className="w-full p-2 border border-slate-300 text-sm font-table focus:outline-none focus:ring-1 focus:ring-red-400"
               />
             </div>
 
@@ -163,7 +163,7 @@ export default function Table() {
                 readOnly
                 rows={10}
                 spellCheck={false}
-                className="w-full p-2 border border-slate-300 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-400"
+                className="w-full p-2 border border-slate-300 text-sm font-table focus:outline-none focus:ring-1 focus:ring-red-400"
               />
             </div>
           </div>

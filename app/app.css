@@ -4,6 +4,7 @@
   --font-sans:
     "Inter", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-table: "BIZ UDGothic", ui-monospace;
 
   --text-color-primary: var(--color-slate-800);
   --text-color-secondary: var(--color-slate-500);
