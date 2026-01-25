@@ -126,6 +126,13 @@ export default function Table() {
       ? formatASCII(records, { hasHeader })
       : formatMarkdown(records);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      setInput((previous) => previous + "\t");
+    }
+  };
+
   return (
     <Page.Container className="bg-red-50">
       <Page.Header className="max-w-4xl">
@@ -169,6 +176,7 @@ export default function Table() {
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.currentTarget.value)}
+                onKeyDown={inputFormat === "tsv" ? handleKeyDown : undefined}
                 rows={10}
                 spellCheck={false}
                 className="w-full p-2 border border-slate-300 text-sm font-table focus:outline-none focus:ring-1 focus:ring-red-400"
