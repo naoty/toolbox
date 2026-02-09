@@ -8,5 +8,11 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"routes": [
+		{
+			"pattern": "toolbox.naoty.dev",
+			"custom_domain": true
+		}
+	]
 }
